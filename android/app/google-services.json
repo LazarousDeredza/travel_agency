@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "435282133857",
+    "firebase_url": "https://travel--agency-default-rtdb.firebaseio.com",
+    "project_id": "travel--agency",
+    "storage_bucket": "travel--agency.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435282133857:android:e00d489b57ac443b8cbb20",
+        "android_client_info": {
+          "package_name": "com.example.travel_agency"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435282133857-u8qtjumsup69d49kn92uot0c6gr96dku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travel_agency",
+            "certificate_hash": "ab7e06c9ab802ffbf411450c4d5be44edc232b81"
+          }
+        },
+        {
+          "client_id": "435282133857-4uur93eethaf2bvoprbjo82dvv2kvg66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG1xAnOyu5SfirTTdimDhBHPjx1Yy3tGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435282133857-4uur93eethaf2bvoprbjo82dvv2kvg66.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "435282133857-0icog0v5a4apjhmp1av6gmu5380o2fkh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.travelAgency"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
