@@ -239,6 +239,28 @@ List<Map> parseData(QuerySnapshot querySnapshot) {
             'list_owner_name': e['owner_name'],
             'list_phone': e['phone'],
             'list_date': e['date_time'],
+            'list_topPlaces': e['topPlaces'],
+            'list_economy': e['economy'],
+            'list_luxury': e['topPlaces'],
+          })
+      .toList();
+  return listItems;
+}
+
+List<Map> parseData2(QuerySnapshot querySnapshot) {
+  List<QueryDocumentSnapshot> listDocs = querySnapshot.docs;
+  List<Map> listItems = listDocs
+      .map((e) => {
+            'list_images': e['gallery_img'],
+            'list_destination': e['destination'],
+            'list_cost': e['cost'],
+            'list_total_cost': e['total_cost'],
+            'list_description': e['description'],
+            'list_facilities': e['facilities'],
+            'list_owner_name': e['owner_name'],
+            'list_phone': e['phone'],
+            'list_date': e['date_time'],
+            'list_end_date': e['end_date']
           })
       .toList();
   return listItems;
@@ -273,24 +295,28 @@ ListView forYou(List<Map<dynamic, dynamic>> items) {
                     topLeft: Radius.circular(7.r),
                     topRight: Radius.circular(7.r),
                   ),
-                  child:CachedNetworkImage(
-                  imageUrl:thisItem['list_images'][0],
-                  height: 100.h,
+                  child: CachedNetworkImage(
+                    imageUrl: thisItem['list_images'][0],
+                    height: 100.h,
                     fit: BoxFit.cover,
-                  filterQuality: FilterQuality.high,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
+                    filterQuality: FilterQuality.high,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.blue,
+                      ),
                     ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Center(
                     child: Text(
-                      thisItem['list_destination'].length>22?thisItem['list_destination'].substring(0, 22) +'...':thisItem['list_destination'],
+                      thisItem['list_destination'].length > 22
+                          ? thisItem['list_destination'].substring(0, 22) +
+                              '...'
+                          : thisItem['list_destination'],
                       style: TextStyle(fontSize: 15.sp),
                       textAlign: TextAlign.justify,
                     ),
@@ -356,7 +382,7 @@ ListView economyPackage(List<Map<dynamic, dynamic>> items) {
             () => DetailsScreen(detailsData: thisItem),
           ),
           child: Container(
-             width: 130.w,
+            width: 130.w,
             height: 180.h,
             decoration: BoxDecoration(
               color: Color(0xFfC4C4C4),
@@ -372,24 +398,28 @@ ListView economyPackage(List<Map<dynamic, dynamic>> items) {
                     topLeft: Radius.circular(7.r),
                     topRight: Radius.circular(7.r),
                   ),
-                  child:CachedNetworkImage(
-                  imageUrl:thisItem['list_images'][0],
-                  height: 100.h,
+                  child: CachedNetworkImage(
+                    imageUrl: thisItem['list_images'][0],
+                    height: 100.h,
                     fit: BoxFit.cover,
-                  filterQuality: FilterQuality.high,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
+                    filterQuality: FilterQuality.high,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.blue,
+                      ),
                     ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Center(
                     child: Text(
-                      thisItem['list_destination'].length>22?thisItem['list_destination'].substring(0, 22) +'...':thisItem['list_destination'],
+                      thisItem['list_destination'].length > 22
+                          ? thisItem['list_destination'].substring(0, 22) +
+                              '...'
+                          : thisItem['list_destination'],
                       style: TextStyle(fontSize: 15.sp),
                       textAlign: TextAlign.justify,
                     ),
@@ -425,7 +455,7 @@ ListView luxuryPackage(List<Map<dynamic, dynamic>> items) {
             () => DetailsScreen(detailsData: thisItem),
           ),
           child: Container(
-             width: 130.w,
+            width: 130.w,
             height: 180.h,
             decoration: BoxDecoration(
               color: Color(0xFfC4C4C4),
@@ -441,24 +471,28 @@ ListView luxuryPackage(List<Map<dynamic, dynamic>> items) {
                     topLeft: Radius.circular(7.r),
                     topRight: Radius.circular(7.r),
                   ),
-                  child:CachedNetworkImage(
-                  imageUrl:thisItem['list_images'][0],
-                  height: 100.h,
+                  child: CachedNetworkImage(
+                    imageUrl: thisItem['list_images'][0],
+                    height: 100.h,
                     fit: BoxFit.cover,
-                  filterQuality: FilterQuality.high,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
+                    filterQuality: FilterQuality.high,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.blue,
+                      ),
                     ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Center(
                     child: Text(
-                      thisItem['list_destination'].length>22?thisItem['list_destination'].substring(0, 22) +'...':thisItem['list_destination'],
+                      thisItem['list_destination'].length > 22
+                          ? thisItem['list_destination'].substring(0, 22) +
+                              '...'
+                          : thisItem['list_destination'],
                       style: TextStyle(fontSize: 15.sp),
                       textAlign: TextAlign.justify,
                     ),

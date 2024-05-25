@@ -32,6 +32,7 @@ class _VacationHomeScreenState extends State<VacationHomeScreen> {
 
   var email = "";
   bool isAdmin = false;
+  String level='user';
 
   final controller = Get.put(ProfileController());
 
@@ -49,11 +50,13 @@ class _VacationHomeScreenState extends State<VacationHomeScreen> {
       setState(() {
         //userName = value.data()!["name"];
         email = value.data()!["email"];
+        level=value.data()!["level"];
 
         print("Email : ........ $email");
 //gzutravelagency@gmail.com
-        if (email == "ninja.ld49@gmail.com") {
+        if (email.toLowerCase() == "ninja.ld49@gmail.com"||level=="admin"||email.toLowerCase()=="gzutravelagency@gmail.com") {
           isAdmin = true;
+          print("is admin : "+isAdmin.toString());
         }
       });
     });

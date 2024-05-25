@@ -10,6 +10,13 @@ class FirestoreServices {
         .get();
   }
 
+   static getMyBookings() {
+    return firestore
+        .collection(bookings)
+        .where('uid', isEqualTo: firebaseAuth.currentUser!.uid)
+        .get();
+  }
+
   //for get top place section data
   static getTopPlacePackage() {
     return firestore

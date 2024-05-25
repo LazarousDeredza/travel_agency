@@ -6,6 +6,7 @@ import 'package:travel_agency/constant/app_colors.dart';
 import 'package:travel_agency/constant/app_strings.dart';
 import 'package:get/get.dart';
 import 'package:travel_agency/controllers/language_controller.dart';
+import 'package:travel_agency/vacation_module/views/bottom_nav_controller/pages/home/my_vac_orders.dart';
 import 'package:travel_agency/vacation_module/views/drawer_page/approve_travels.dart';
 import 'package:travel_agency/vacation_module/views/drawer_page/faq_screen.dart';
 import 'package:travel_agency/vacation_module/views/drawer_page/privacy_policy_screen.dart';
@@ -65,8 +66,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 ),
               ),
               SizedBox(height: 10.h),
-            
-              
+             drawerItem(
+                itemName: 'My Bookings'.tr,
+                onClick: () => Get.to(
+                  () => MyVacationBookings(),
+                ),
+              ),
+               SizedBox(height: 10.h),
               SizedBox(
                 width: 150.w,
                 child: ExpansionTile(

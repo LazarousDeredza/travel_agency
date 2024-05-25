@@ -4,45 +4,41 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:travel_agency/constant/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:travel_agency/constant/constant.dart';
 import 'package:travel_agency/vacation_module/services/firestore_services.dart';
 import 'package:travel_agency/vacation_module/views/bottom_nav_controller/pages/home/nav_home_screen.dart';
+import 'package:travel_agency/vacation_module/views/bottom_nav_controller/pages/onebookingdetails_screen.dart';
 
 import 'details_screen.dart';
 
-class SeeAllScreen extends StatefulWidget {
-  var compare;
-  SeeAllScreen({super.key, required this.compare});
+class MyVacationBookings extends StatefulWidget {
+
+  MyVacationBookings({super.key});
 
   @override
-  State<SeeAllScreen> createState() => _SeeAllScreenState();
+  State<MyVacationBookings> createState() => _MyVacationBookingsState();
 }
 
-class _SeeAllScreenState extends State<SeeAllScreen> {
+class _MyVacationBookingsState extends State<MyVacationBookings> {
   //collectionName
-  final CollectionReference _refference = firestore.collection('all-data');
+ // final CollectionReference _refference = firestore.collection('all-data');
 
   //queryName
   late Future<QuerySnapshot> _futureDataForYour;
-  late Future<QuerySnapshot> _futureDataRecentlyAdded;
-  late Future<QuerySnapshot> _futureDataTopPlaces;
 
   @override
   void initState() {
-    _futureDataForYour = FirestoreServices.getForYouPackage();
-    _futureDataTopPlaces = FirestoreServices.getTopPlacePackage();
+    _futureDataForYour = FirestoreServices.getMyBookings();
 
     super.initState();
   }
 
   condition() {
-    if (widget.compare == 'phone') {
       return _futureDataForYour;
-    } else if (widget.compare == 'cost') {
-      return _futureDataTopPlaces;
-    }
+    
   }
 
   @override
@@ -51,7 +47,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
       backgroundColor: AppColors.scaffoldColor,
       appBar: AppBar(
         title: Text(
-          "All Package".tr,
+          "Your Bookings".tr,
           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
         ),
       ),
@@ -64,7 +60,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               return Text("Error");
             }
             if (snapshot.hasData) {
-              List<Map> items = parseData(snapshot.data);
+              List<Map> items = parseData2(snapshot.data);
               return forYouBuildGridview(items);
             }
             return Center(child: CircularProgressIndicator());
@@ -78,16 +74,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
 GridView forYouBuildGridview(List<Map<dynamic, dynamic>> itemList) {
   return GridView.builder(
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: 1,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
-        childAspectRatio: 0.8),
+        childAspectRatio: 0.9),
     itemCount: itemList.length,
     itemBuilder: (_, i) {
       Map thisItem = itemList[i];
       return InkWell(
         onTap: () => Get.to(
-          () => DetailsScreen(detailsData: thisItem),
+          () => OneBookingDetailsScreen(detailsData: thisItem),
         ),
         child: Container(
           decoration: BoxDecoration(
@@ -106,7 +102,7 @@ GridView forYouBuildGridview(List<Map<dynamic, dynamic>> itemList) {
                 ),
                 child: CachedNetworkImage(
                   imageUrl: thisItem['list_images'][0],
-                  height: 150.h,
+                  height: 220.h,
                   width: double.infinity,
                   fit: BoxFit.fill,
                   filterQuality: FilterQuality.high,
@@ -134,7 +130,25 @@ GridView forYouBuildGridview(List<Map<dynamic, dynamic>> itemList) {
                 style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400),
               ),
               SizedBox(
-                height: 5.h,
+                height: 2.h,
+              ),
+              Text(
+                "From : "+getFormattedDateTime(thisItem['list_date']),
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400),
+              ),
+               SizedBox(
+                height: 2.h,
+              ),
+              Text(
+                "To : "+getFormattedDateTime(thisItem['list_end_date']),
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400),
+              ),
+               Text(
+                "Paid \: \$${thisItem['list_total_cost']} Using Ecocash",
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400),
+              ),
+               SizedBox(
+                height: 2.h,
               ),
             ],
           ),
@@ -142,4 +156,14 @@ GridView forYouBuildGridview(List<Map<dynamic, dynamic>> itemList) {
       );
     },
   );
+
+
+  
+
 }
+
+ String getFormattedDateTime(Timestamp time) {
+  DateTime t=DateTime.fromMillisecondsSinceEpoch(time.millisecondsSinceEpoch);
+    final formatter = DateFormat('dd/MM/yyyy HH:mm');
+    return formatter.format(t);
+  }

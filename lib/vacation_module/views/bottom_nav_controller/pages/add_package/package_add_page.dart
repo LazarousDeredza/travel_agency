@@ -139,7 +139,7 @@ class _PackageAddPageState extends State<PackageAddPage> {
                   onlyRead: true,
                 ),
                 customTextField(
-                  "Cost".tr,
+                  "Cost\/day".tr,
                   _costController,
                   TextInputType.number,
                   onlyRead: false,

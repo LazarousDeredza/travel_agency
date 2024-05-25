@@ -120,7 +120,7 @@ GridView forYouBuildGridview(List<Map<dynamic, dynamic>> itemList) {
                 ),
               ),
               Text(
-                "\$ ${thisItem['list_cost']}",
+                "\$ ${thisItem['list_cost']}\/day",
                 style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400),
               ),
               SizedBox(

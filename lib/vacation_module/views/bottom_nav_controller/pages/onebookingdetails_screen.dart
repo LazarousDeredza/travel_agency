@@ -15,15 +15,15 @@ import 'package:travel_agency/vacation_module/views/widgets/violetButton.dart';
 import 'package:url_launcher/url_launcher.dart';
 //import 'package:velocity_x/velocity_x.dart';
 
-class DetailsScreen extends StatefulWidget {
+class OneBookingDetailsScreen extends StatefulWidget {
   final Map detailsData;
-  const DetailsScreen({super.key, required this.detailsData});
+  const OneBookingDetailsScreen({super.key, required this.detailsData});
 
   @override
-  State<DetailsScreen> createState() => _DetailsScreenState();
+  State<OneBookingDetailsScreen> createState() => _OneBookingDetailsScreenState();
 }
 
-class _DetailsScreenState extends State<DetailsScreen> {
+class _OneBookingDetailsScreenState extends State<OneBookingDetailsScreen> {
   var authCredential = firebaseAuth.currentUser;
 
   RxBool isLoading = false.obs;
@@ -215,26 +215,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 color: AppColors.scaffoldColor,
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Obx(() {
-                            return VioletButton(
-                              isLoading: isLoading.value,
-                              title: "Book This Package".tr,
-                              onAction: () async {
-                                print("........ " +
-                                    widget.detailsData.toString());
-                                isLoading(true);
-                                await BookTravel(context, widget.detailsData);
-                                isLoading(false);
-                                //Get.back();
-                              },
-                            );
-                          }),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Obx(() {
+                    //         return VioletButton(
+                    //           isLoading: isLoading.value,
+                    //           title: "Book This Package".tr,
+                    //           onAction: () async {
+                    //             print("........ " +
+                    //                 widget.detailsData.toString());
+                    //             isLoading(true);
+                    //             await BookTravel(context, widget.detailsData);
+                    //             isLoading(false);
+                    //             //Get.back();
+                    //           },
+                    //         );
+                    //       }),
+                    //     ),
+                    //   ],
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -500,25 +500,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                       data.doc().set(
                         {
-                          "owner_name": widget.detailsData['list_owner_name'],
-                          "description": widget.detailsData['list_destination'],
-                          "cost": widget.detailsData['list_cost'],
+                          "owner_name": widget.detailsData['owner_name'],
+                          "description": widget.detailsData['description'],
+                          "cost": widget.detailsData['cost'],
                           "total_cost": amount,
                           "approved": true,
                           "forYou": true,
-                          "topPlaces": widget.detailsData['list_topPlaces'],
-                          "economy": widget.detailsData['list_economy'],
-                          "luxury": widget.detailsData['list_luxury'],
+                          "topPlaces": widget.detailsData['topPlaces'],
+                          "economy": widget.detailsData['economy'],
+                          "luxury": widget.detailsData['luxury'],
                           "end_date": endDte,
                           "paid": true,
                           "payment_method": "Ecocash",
-                          "facilities": widget.detailsData['list_facilities'],
-                          "destination": widget.detailsData['list_destination'],
-                          "phone": widget.detailsData['list_phone'],
+                          "facilities": widget.detailsData['facilities'],
+                          "destination": widget.detailsData['destination'],
+                          "phone": widget.detailsData['phone'],
                           "uid": firebaseAuth.currentUser!.uid,
                           'date_time': DateTime.now(),
-                          "gallery_img": widget.detailsData['list_images'],
-                          
+                          "gallery_img": widget.detailsData['gallery_img'],
                         },
                       ).whenComplete(() {
                         Get.snackbar("Successful",
