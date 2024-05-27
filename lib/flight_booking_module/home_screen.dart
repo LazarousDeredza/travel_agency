@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:travel_agency/flight_booking_module/flight_list_screen.dart';
+import 'package:travel_agency/tax_hiring_module/src/features/core/services/widgets/widgets.dart';
 
 
 class FlightBookingHomeScreen extends StatefulWidget{
@@ -74,7 +76,13 @@ class FlightBookingHomeScreenState extends State<FlightBookingHomeScreen> {
                 ElevatedButton(
                   child:  Text("Proceed"),
                   onPressed: (){
-                   Get.to(() => FlightListScreen(fullName : nameController.text));
+                    if(nameController.text.length==0){
+                      showSnackbar(context, Colors.black, "Please Enter your name");
+                      return;
+                    }else{
+                      Get.to(() => FlightListScreen(fullName : nameController.text));
+                    }
+                   
                   },
 
                 ),

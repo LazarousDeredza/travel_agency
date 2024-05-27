@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_agency/flight_booking_module/home_screen.dart';
+import 'package:travel_agency/home/home.dart';
 
 import 'package:travel_agency/hotel_booking_module/core/app_export.dart';
 import 'package:travel_agency/hotel_booking_module/presentation/hotel_screen/hotel_home_screen.dart';
-import '../../../widgets/custom_elevated_button.dart';
+import 'package:travel_agency/tax_hiring_module/src/features/core/screens/vehicle/details/screens/home.dart';
 
-class OrderPaidButton extends StatefulWidget {
-  const OrderPaidButton({super.key});
+class FlightOrderPaidButton extends StatefulWidget {
+  const FlightOrderPaidButton({super.key});
 
   @override
-  State<OrderPaidButton> createState() => _OrderPaidButtonState();
+  State<FlightOrderPaidButton> createState() => _FlightOrderPaidButtonState();
 }
 
-class _OrderPaidButtonState extends State<OrderPaidButton> {
+class _FlightOrderPaidButtonState extends State<FlightOrderPaidButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +23,7 @@ class _OrderPaidButtonState extends State<OrderPaidButton> {
       child: ElevatedButton(
 
         onPressed: () {
-          Get.to(()=>HotelHomeScreen());
+          Get.to(()=>MainHomeScreen());
         },
         child:Text( "Great!"),
       ),

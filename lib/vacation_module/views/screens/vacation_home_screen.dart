@@ -151,7 +151,7 @@ class _VacationHomeScreenState extends State<VacationHomeScreen> {
     return WillPopScope(
       onWillPop: () {
         // _exitDialog(context);
-        Get.off(MainHomeScreen());
+        Get.off( ()=>MainHomeScreen());
          return Future.value(false);
       },
       child: Scaffold(

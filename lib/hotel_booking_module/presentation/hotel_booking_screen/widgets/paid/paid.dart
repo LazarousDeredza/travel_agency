@@ -39,11 +39,8 @@ class _PaidState extends State<Paid> {
             titleText: "Additional",
             priceText: "\$3",
           ),
-          SizedBox(height: 13.v),
-          Price(
-            titleText: "To pay",
-            priceText: "\$" +widget.totalAmount.toString(),
-          ),
+          SizedBox(height: 8.v),
+         
         ],
       ),
     );

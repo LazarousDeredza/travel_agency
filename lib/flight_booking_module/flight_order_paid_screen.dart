@@ -1,19 +1,20 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:travel_agency/flight_booking_module/flight_order_paid_button.dart';
 
 import 'package:travel_agency/hotel_booking_module/presentation/order_paid_screen/widgets/order_paid_appbar.dart';
 import 'package:travel_agency/hotel_booking_module/presentation/order_paid_screen/widgets/order_paid_button.dart';
 import 'package:travel_agency/hotel_booking_module/core/app_export.dart';
 
-class OrderPaidScreen extends ConsumerStatefulWidget {
-  const OrderPaidScreen({super.key});
+class FlightOrderPaidScreen extends ConsumerStatefulWidget {
+  const FlightOrderPaidScreen({super.key});
 
   @override
   OrderPaidScreenState createState() => OrderPaidScreenState();
 }
 
-class OrderPaidScreenState extends ConsumerState<OrderPaidScreen> {
+class OrderPaidScreenState extends ConsumerState<FlightOrderPaidScreen> {
 
 
 
@@ -25,7 +26,9 @@ class OrderPaidScreenState extends ConsumerState<OrderPaidScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: appTheme.whiteA700,
-        appBar: OrderPaidAppbar(),
+        appBar:AppBar(
+          title: Text("Flight Order",),
+        ),
         body: Container(
           width: double.maxFinite,
           padding: EdgeInsets.only(left: 29.h, top: 122.v, right: 29.h),
@@ -64,7 +67,7 @@ class OrderPaidScreenState extends ConsumerState<OrderPaidScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: OrderPaidButton(),
+        bottomNavigationBar: FlightOrderPaidButton(),
       ),
     );
   }

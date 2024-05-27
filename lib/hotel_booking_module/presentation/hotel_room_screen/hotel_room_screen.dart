@@ -51,7 +51,7 @@ class HotelRoomScreenState extends ConsumerState<HotelRoomScreen> {
                         width: 337.h,
                         margin: EdgeInsets.only(right: 5.h),
                         child: Text(
-                          "Standard Pool or Garden View",
+                          "Standard Pool \& Garden View",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: theme.textTheme.titleLarge!
@@ -72,7 +72,7 @@ class HotelRoomScreenState extends ConsumerState<HotelRoomScreen> {
                       SizedBox(height: 15.v),
                        CustomElevatedButton(
                         onPressed: () {
-                          Get.to(() => HotelBookingScreen( hotel: widget.hotel,selectedOption:  "Standard Pool or Garden View",totalAmount: widget.hotel.minimalPrice+25,));
+                          Get.to(() => HotelBookingScreen( hotel: widget.hotel,selectedOption:  "Standard Pool \& Garden View",totalAmount: widget.hotel.minimalPrice+25,));
                         },
                         buttonTextStyle: TextStyle(
                           color: Colors.black

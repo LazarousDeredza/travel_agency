@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travel_agency/flight_booking_module/flight_model.dart';
+import 'package:travel_agency/flight_booking_module/flight_order_paid_screen.dart';
 
 import 'package:travel_agency/hotel_booking_module/core/app_export.dart';
-import '../../../widgets/custom_elevated_button.dart';
 
-class BookingButton extends StatefulWidget {
-  final Hotel hotel;
+
+class FlightBookingButton extends StatefulWidget {
+  final Flight flight;
   final int totalAmount;
-  final String selectedOption;
-  final String StartDate, endDate;
-  final int numberOfDays;
+  final String fightNumber;
+  final String StartDate;
+  final int numberOfPassengers;
 
-  const BookingButton(
-      {required this.hotel,
+  const FlightBookingButton(
+      {required this.flight,
       required this.totalAmount,
-      required this.selectedOption,
+      required this.fightNumber,
       required this.StartDate,
-      required this.endDate,
-      required this.numberOfDays,
+     
+      required this.numberOfPassengers,
       super.key});
 
   @override
-  State<BookingButton> createState() => _BookingButtonState();
+  State<FlightBookingButton> createState() => _FlightBookingButtonState();
 }
 
-class _BookingButtonState extends State<BookingButton> {
+class _FlightBookingButtonState extends State<FlightBookingButton> {
   String payingphone = "";
   bool _isLoading = false;
 
@@ -35,8 +37,8 @@ class _BookingButtonState extends State<BookingButton> {
       decoration: AppDecoration.outlineGray,
       child: ElevatedButton(
         onPressed: () {
-          popUpDialog(context, widget.hotel, widget.totalAmount,
-              widget.selectedOption, widget.StartDate, widget.endDate);
+          popUpDialog(context, widget.flight, widget.totalAmount,
+              widget.fightNumber, widget.StartDate);
 
          
         },
@@ -45,8 +47,8 @@ class _BookingButtonState extends State<BookingButton> {
     );
   }
 
-  popUpDialog(BuildContext context, Hotel hotel, int totalAmount,
-      String selectedOption, String startDate, String endDate) {
+  popUpDialog(BuildContext context, Flight flight, int totalAmount,
+      String selectedOption, String startDate) {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -70,7 +72,7 @@ class _BookingButtonState extends State<BookingButton> {
                 ),
               ),
               title: Text(
-                "Payment for Hotel Booking at : " + widget.hotel.name,
+                "Payment for Flight : " + widget.fightNumber,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
@@ -80,19 +82,19 @@ class _BookingButtonState extends State<BookingButton> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("Selected Package : " + widget.selectedOption),
+                    Text("Flying : " + "Commercial"),
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Number Of Days : " + widget.numberOfDays.toString()),
+                    Text("Number Of Passengers : " + widget.numberOfPassengers.toString()),
                     SizedBox(
                       height: 10,
                     ),
-                    Text("From : " + widget.StartDate.toString()),
+                    Text("From : " + widget.flight.from.toString()),
                     SizedBox(
                       height: 10,
                     ),
-                    Text("To : " + widget.endDate.toString()),
+                    Text("To : " + widget.flight.to.toString()),
 
                     SizedBox(
                       height: 10,
@@ -243,7 +245,7 @@ class _BookingButtonState extends State<BookingButton> {
                         _isLoading = false;
                       });
 
-                      Get.to(() => OrderPaidScreen());
+                      Get.to(() => FlightOrderPaidScreen());
 
                       // Navigator.of(context).pushReplacement(MaterialPageRoute(
                       //     builder: (context) => const TaxHome()));
