@@ -69,21 +69,7 @@ class _BookingDataState extends State<BookingData> {
                   ),
                  
                   SizedBox(height: 13.v),
-                  Row(
-                    children: [
-                      Text(
-                        "Number of nights",
-                        style: theme.textTheme.bodyLarge,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 44.h),
-                        child: Text(
-                          (Random().nextInt(3)+2).toString()+" nights",
-                          style: CustomTextStyles.bodyLargeSecondaryContainer,
-                        ),
-                      ),
-                    ],
-                  ),
+                 
                   SizedBox(height: 15.v),
                   Padding(
                     padding: EdgeInsets.only(right: 10),

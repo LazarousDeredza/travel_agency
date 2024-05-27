@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 import 'package:travel_agency/hotel_booking_module/core/app_export.dart';
@@ -47,6 +49,48 @@ class HotelBookingScreenState extends ConsumerState<HotelBookingScreen> {
       setState(() {
         _selectedDate = picked;
         _dateController.text = DateFormat('yyyy-MM-dd').format(picked);
+      });
+    }
+  }
+
+  final int initialValue = 1;
+  final int minValue = 1;
+  final int maxValue = 50;
+  final int step = 1;
+
+  late final Function(int)? onValueChanged=(value) {
+    
+  };
+
+  
+
+
+  late TextEditingController _controller =TextEditingController();
+  int _value = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = initialValue;
+    _controller = TextEditingController(text: _value.toString());
+  }
+
+  void _incrementValue() {
+    _setValue(_value + step);
+  }
+
+  void _decrementValue() {
+    _setValue(_value - step);
+  }
+
+  void _setValue(int newValue) {
+    if (newValue >= minValue && newValue <= maxValue) {
+      setState(() {
+        _value = newValue;
+        _controller.text = _value.toString();
+        if (onValueChanged != null) {
+          onValueChanged!(_value);
+        }
       });
     }
   }
@@ -100,37 +144,100 @@ class HotelBookingScreenState extends ConsumerState<HotelBookingScreen> {
                             color: Colors.white,
                             child: Padding(
                               padding: EdgeInsets.only(right: 27.h),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              child: Column(
                                 children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 1.v, left: 20),
-                                    child: Text(
-                                      "Date",
-                                      style: theme.textTheme.bodyLarge,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TextField(
-                                          controller: _dateController,
-                                          readOnly: true,
-                                          onTap: _selectDate,
-                                          decoration: InputDecoration(
-                                            hintText: 'Select a date',
-                                            suffixIcon:
-                                                Icon(Icons.calendar_today),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.only(top: 1.v, left: 20),
+                                        child: Text(
+                                          "Date",
+                                          style: theme.textTheme.bodyLarge,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              TextField(
+                                                controller: _dateController,
+                                                readOnly: true,
+                                                onTap: _selectDate,
+                                                decoration: InputDecoration(
+                                                  hintText: 'Select a date',
+                                                  suffixIcon: Icon(
+                                                      Icons.calendar_today),
+                                                ),
+                                              ),
+                                              SizedBox(height: 16.0),
+                                              Text(
+                                                  'Selected date: ${DateFormat('yyyy-MM-dd').format(_selectedDate)}'),
+                                            ],
                                           ),
                                         ),
-                                        SizedBox(height: 16.0),
-                                        Text(
-                                            'Selected date: ${DateFormat('yyyy-MM-dd').format(_selectedDate)}'),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 20),
+                                          child: Text(
+                                            "Number of nights",
+                                            style: theme.textTheme.bodyLarge,
+                                          ),
+                                        ),
+                                        Expanded(
+
+                                          child: Padding(
+                                            padding: EdgeInsets.only(left: 30.h),
+                                            child: Row(
+                                              children: [
+                                                IconButton(
+                                                  onPressed: _decrementValue,
+                                                  icon: Icon(Icons.remove),
+                                                ),
+                                                Expanded(
+                                                  child: TextField(
+                                                    controller: _controller,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .digitsOnly,
+                                                    ],
+                                                    onChanged: (value) {
+                                                      if (value.isNotEmpty) {
+                                                        _setValue(int.parse(value));
+                                                      } else {
+                                                        _setValue(0);
+                                                      }
+                                                    },
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  onPressed: _incrementValue,
+                                                  icon: Icon(Icons.add),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
