@@ -16,6 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:travel_agency/constant/app_colors.dart';
 import 'package:get/get.dart';
+import 'package:travel_agency/flight_booking_module/home_screen.dart';
+import 'package:travel_agency/hotel_booking_module/presentation/hotel_screen/hotel_home_screen.dart';
+import 'package:travel_agency/hotel_booking_module/presentation/hotel_screen/hotel_screen.dart';
 import 'package:travel_agency/main.dart';
 import 'package:travel_agency/tax_hiring_module/src/constants/image_strings.dart';
 import 'package:travel_agency/tax_hiring_module/src/features/core/screens/dashboard/dashboard.dart';
@@ -30,7 +33,8 @@ class MainHomeScreen extends StatefulWidget {
   State<MainHomeScreen> createState() => _MainHomeScreenState();
 }
 
-class _MainHomeScreenState extends State<MainHomeScreen> with TickerProviderStateMixin {
+class _MainHomeScreenState extends State<MainHomeScreen>
+    with TickerProviderStateMixin {
   final List _carouselImages = [
     'assets/carouseimage/cover-one.jpg',
     'assets/carouseimage/cover-two.jpg',
@@ -69,54 +73,46 @@ class _MainHomeScreenState extends State<MainHomeScreen> with TickerProviderStat
 
   late final AnimationController _colorAnimationController;
   late final Animation<Color?> _colorAnimation;
-    late final Animation<Color?> _colorAnimation1;
+  late final Animation<Color?> _colorAnimation1;
   late final Animation<Color?> _colorAnimation2;
   late final Animation<Color?> _colorAnimation3;
 
+  @override
+  void initState() {
+    super.initState();
 
-@override
-void initState() {
-  super.initState();
+    _colorAnimationController = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    )..repeat();
 
-  _colorAnimationController = AnimationController(
-    duration: const Duration(seconds: 3),
-    vsync: this,
-  )..repeat();
-
-
-  _colorAnimation = ColorTween(
-    begin: const Color.fromARGB(255, 3, 84, 151),
-    end: Color.fromARGB(255, 6, 206, 39),
-
-  ).animate(_colorAnimationController);
-
+    _colorAnimation = ColorTween(
+      begin: const Color.fromARGB(255, 3, 84, 151),
+      end: Color.fromARGB(255, 6, 206, 39),
+    ).animate(_colorAnimationController);
 
     _colorAnimation1 = ColorTween(
-    begin: Color.fromARGB(255, 126, 0, 230),
-    end: Color.fromARGB(255, 192, 13, 138),
-
-  ).animate(_colorAnimationController);
-
+      begin: Color.fromARGB(255, 126, 0, 230),
+      end: Color.fromARGB(255, 192, 13, 138),
+    ).animate(_colorAnimationController);
 
     _colorAnimation2 = ColorTween(
-    begin: Color.fromARGB(255, 234, 93, 0),
-    end: Color.fromARGB(255, 24, 3, 141),
-
-  ).animate(_colorAnimationController);
-
+      begin: Color.fromARGB(255, 234, 93, 0),
+      end: Color.fromARGB(255, 24, 3, 141),
+    ).animate(_colorAnimationController);
 
     _colorAnimation3 = ColorTween(
-    begin: Color.fromARGB(255, 104, 17, 69),
-    end: Color.fromARGB(255, 32, 188, 231),
+      begin: Color.fromARGB(255, 104, 17, 69),
+      end: Color.fromARGB(255, 32, 188, 231),
+    ).animate(_colorAnimationController);
+  }
 
-  ).animate(_colorAnimationController);
-}
+  @override
+  void dispose() {
+    _colorAnimationController.dispose();
+    super.dispose();
+  }
 
-@override
-void dispose() {
-  _colorAnimationController.dispose();
-  super.dispose();
-}
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -136,7 +132,7 @@ void dispose() {
                 builder: (BuildContext context, StateSetter setState) {
                   return CarouselSlider(
                     options: CarouselOptions(
-                      height: mq.height/2.5,
+                      height: mq.height / 2.5,
                       enlargeCenterPage: true,
                       autoPlay: true,
                       aspectRatio: 16 / 9,
@@ -181,7 +177,7 @@ void dispose() {
                 padding: EdgeInsets.only(top: 15.0),
                 child: Center(
                   child: Row(
-                    crossAxisAlignment:CrossAxisAlignment.center ,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AnimatedBuilder(
@@ -201,14 +197,14 @@ void dispose() {
                                             Shadow(
                                               offset: Offset(2, 2),
                                               blurRadius: 2,
-                                              color: Colors.black.withOpacity(0.5),
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
                                             ),
                                           ],
                                         ),
                                       ))
                                   .toList(),
                             ),
-                            
                           );
                         },
                       ),
@@ -229,18 +225,18 @@ void dispose() {
                                             Shadow(
                                               offset: Offset(2, 2),
                                               blurRadius: 2,
-                                              color: Colors.black.withOpacity(0.5),
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
                                             ),
                                           ],
                                         ),
                                       ))
                                   .toList(),
                             ),
-                            
                           );
                         },
                       ),
-                     AnimatedBuilder(
+                      AnimatedBuilder(
                         animation: _colorAnimation2,
                         builder: (context, child) {
                           return Text.rich(
@@ -257,18 +253,18 @@ void dispose() {
                                             Shadow(
                                               offset: Offset(2, 2),
                                               blurRadius: 2,
-                                              color: Colors.black.withOpacity(0.5),
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
                                             ),
                                           ],
                                         ),
                                       ))
                                   .toList(),
                             ),
-                            
                           );
                         },
                       ),
-                     AnimatedBuilder(
+                      AnimatedBuilder(
                         animation: _colorAnimation3,
                         builder: (context, child) {
                           return Text.rich(
@@ -285,18 +281,17 @@ void dispose() {
                                             Shadow(
                                               offset: Offset(2, 2),
                                               blurRadius: 2,
-                                              color: Colors.black.withOpacity(0.5),
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
                                             ),
                                           ],
                                         ),
                                       ))
                                   .toList(),
                             ),
-                            
                           );
                         },
                       ),
-                   
                     ],
                   ),
                 ),
@@ -338,7 +333,7 @@ void dispose() {
                               Image.asset(
                                 "assets/carouseimage/cover-one.jpg",
                                 width: mq.width / 2.5,
-                                height: mq.height/7,
+                                height: mq.height / 7,
                               ),
                               SizedBox(height: 10),
                               Text(
@@ -378,9 +373,9 @@ void dispose() {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
-                               // passengerVh,
-                               tTaxi,
-                                height: mq.height/7,
+                                // passengerVh,
+                                tTaxi,
+                                height: mq.height / 7,
                                 width: mq.width / 2.5,
                               ),
                               SizedBox(height: 10),
@@ -407,10 +402,11 @@ void dispose() {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    //Vacational
+                    //Flight Booking Module
+
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => VacationHomeScreen());
+                        Get.to(() => FlightBookingHomeScreen());
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -433,7 +429,7 @@ void dispose() {
                               Image.asset(
                                 tFlight2,
                                 width: mq.width / 2.5,
-                                height: mq.height/7,
+                                height: mq.height / 7,
                               ),
                               SizedBox(height: 10),
                               Text(
@@ -449,10 +445,10 @@ void dispose() {
                         ),
                       ),
                     ),
-                    //Tax Hiring Module
+                    //Hotel Booking Module
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => TaxHome());
+                        Get.to(() => HotelHomeScreen());
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -474,8 +470,8 @@ void dispose() {
                             children: [
                               Image.asset(
                                 tHotel3,
-                               width: mq.width / 2.5,
-                                height: mq.height/7,
+                                width: mq.width / 2.5,
+                                height: mq.height / 7,
                               ),
                               SizedBox(height: 10),
                               Text(

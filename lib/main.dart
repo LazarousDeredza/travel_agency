@@ -7,6 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_agency/firebase_options.dart';
+import 'package:travel_agency/hotel_booking_module/core/app_export.dart';
+import 'package:travel_agency/hotel_booking_module/core/utils/pref_utils.dart';
+import 'package:travel_agency/hotel_booking_module/core/utils/size_utils.dart';
 import 'package:travel_agency/tax_hiring_module/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:travel_agency/tax_hiring_module/src/utils/theme/theme.dart';
 import 'constant/app_colors.dart';
@@ -33,6 +36,8 @@ void main() async {
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
+      PrefUtils().init();
+
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -54,8 +59,7 @@ void main() async {
           })
       : null;
 
-  runApp(App());
-}
+runApp(ProviderScope(child: App()));}
 
 ThemeManager themeManager = ThemeManager(ThemeMode.light);
 
@@ -75,25 +79,29 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      //! Initialize FlutterFire:
-      future: _initialization,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          print("....error....");
-          print("Error : " + snapshot.error.toString());
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (snapshot.connectionState == ConnectionState.done) {
-          print("....screen....");
-          return MyApp();
-        }
-        return Center(
-          child: CircularProgressIndicator(),
+    return Sizer(
+       builder: (context, orientation, deviceType) {
+        return FutureBuilder(
+          //! Initialize FlutterFire:
+          future: _initialization,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              print("....error....");
+              print("Error : " + snapshot.error.toString());
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.connectionState == ConnectionState.done) {
+              print("....screen....");
+              return MyApp();
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         );
-      },
+      }
     );
   }
 }
